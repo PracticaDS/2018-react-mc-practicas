@@ -6,31 +6,18 @@ const Precio = ({precio}) => precio ?
   <div className="precio">+ ${precio}</div> : 
   "GRATIS"
 
-export default class Ingrediente extends React.Component {
+const Ingrediente = ({ 
+  ingrediente: { nombre, precio }, 
+  showingInfo,
+  cuandoTeSeleccionen
+}) => (
+  <div className="ingrediente">
+    <div className="nombre">{nombre}</div>
+    <Precio precio={precio} />
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      showingInfo: false
-    }
-  }
+    { ! showingInfo && <button onClick={cuandoTeSeleccionen}>Info</button> }
+    { showingInfo && <div>Informacion nutricional</div> }
+  </div>
+)
 
-  render() {
-    const { ingrediente: { nombre, precio } } = this.props;
-    return (
-      <div className="ingrediente">
-        <div className="nombre">{nombre}</div>
-        <Precio precio={precio} />
-
-        { ! this.state.showingInfo && 
-          <button onClick={() => this.setState({
-            showingInfo: true
-          })}>Info</button> }
-       
-        { this.state.showingInfo && 
-          <div>Informacion nutricional</div> }
-      </div>
-    )
-  }
-
-}
+export default Ingrediente
